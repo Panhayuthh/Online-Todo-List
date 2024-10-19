@@ -1,0 +1,49 @@
+
+
+.card {
+  border-radius: 50px;
+  padding: 30px;
+}
+
+input {
+  border: 2px solid #00aaff;
+  border-radius: 30px;
+  background-color: transparent;
+  color: white;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+a.forgot {
+  text-decoration: none;
+  color: #b3b3b3;
+}
+
+a.forgot:hover {
+  color: white;
+}
+
+button {
+  border-radius: 30px;
+}
+
+ul.social-network {
+  padding: 0;
+  margin: 10px 0;
+}
+
+ul.social-network li {
+  display: inline;
+  margin: 0 10px;
+}
+
+ul.social-network a {
+  color: white;
+  transition: color 0.3s;
+}
+
+ul.social-network a:hover {
+  color: #00aaff;
+}
