@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute([$username, $email, $hashed_password])) {
             echo "Registration successful!";
-            header('Location: loginpage.php'); 
+            header('Location: index.php'); 
             exit();
         } else {
             echo "Registration failed. Please try again.";
