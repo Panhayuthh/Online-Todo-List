@@ -1,9 +1,25 @@
 <?php
-include 'config.php';  // Include the database connection
+session_start();  
+include 'config.php';  
+$userId = 1;  
+$username = "John Doe"; 
+$email = "user@gmail.com";
 
-$userId = 1;  // Example user ID
-$username = "User";
-$email = "User@gmail.com";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $title = $_POST['listTitle'];
+    $description = $_POST['description'];
+    $due_date = $_POST['due_date'];
+    $status = $_POST['status'];
+
+    $stmt = $conn->prepare("
+        INSERT INTO to_do_list (user_id, title, description, due_date, status)
+        VALUES (?, ?, ?, ?, ?)
+    ");
+    $stmt->execute([$userId, $title, $description, $due_date, $status]);
+
+    header("Location: dashboard.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +30,7 @@ $email = "User@gmail.com";
     <title>Project Management Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    
     <style>
         body { display: flex; height: 100vh; margin: 0; }
         .sidebar { background-color: lightblue; width: 250px; padding: 15px; display: flex; flex-direction: column; }
@@ -49,89 +66,123 @@ $email = "User@gmail.com";
             <div class="card-body">
                 <p>Welcome, <strong><?php echo htmlspecialchars($username); ?></strong>! Here is an overview of your existing to-do lists:</p>
                 <ul>
-                    <?php
+                <?php
                     $stmt = $conn->prepare("
-                        SELECT title, COUNT(tasks.id) AS task_count
+                        SELECT COUNT(*) AS to_do_list_count
                         FROM to_do_list
-                        LEFT JOIN tasks ON to_do_list.id = tasks.list_id
-                        WHERE to_do_list.user_id = ?
-                        GROUP BY to_do_list.id
+                        WHERE user_id = ?
                     ");
-                    $stmt->execute([$userId]);  // Correct PDO execution
+                    $stmt->execute([$userId]);  
 
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);  // Fetch all results
+                    $result = $stmt->fetch(PDO::FETCH_ASSOC); 
 
-                    if (count($result) > 0) {
-                        foreach ($result as $row) {
-                            echo "<li>" . htmlspecialchars($row['title']) . ": " . $row['task_count'] . " tasks</li>";
-                        }
+                    if ($result) {
+                        echo "<li>Total To-Do Lists: " . htmlspecialchars($result['to_do_list_count']) . "</li>";
                     } else {
                         echo "<li>No to-do lists found.</li>";
                     }
                     ?>
+
                 </ul>
             </div>
         </div>
-
-        <!-- Create New To-Do List -->
-        <div class="card mb-4">
-            <div class="card-header bg-secondary text-white">Create New To-Do List</div>
-            <div class="card-body">
-                <form method="POST" action="create_todo.php">
+        <form id="todoForm" method="POST" action="create_todo.php" class="mb-4">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal">
+                Create List
+            </button>
+        </form>
+<div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="dashboard.php">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="descriptionModalLabel">Add To-Do List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
-                        <label for="listTitle">To-Do List Title</label>
-                        <input type="text" name="listTitle" id="listTitle" class="form-control" placeholder="e.g., Work, Personal" required>
-                        
+                        <label for="listTitle">Title</label>
+                        <input type="text" class="form-control" id="listTitle" name="listTitle" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Create List</button>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" class="form-control" rows="4" placeholder="Add more details..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="due_date">Due Date:</label>
+                        <input type="date" class="form-control" id="due_date" name="due_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status:</label>
+                        <select class="form-control" id="status" name="status" required>
+                            <option value="not_started">Not Started</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" >Create List</button>
+                </div>
+            </form>
+            
         </div>
+    </div>
+</div>
+
 
         <!-- Display To-Do Lists -->
         <div class="card mb-4">
-            <div class="card-header bg-success text-white">Your To-Do Lists</div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Number of Tasks</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $stmt = $conn->prepare("
-                            SELECT to_do_list.id, to_do_list.title, COUNT(tasks.id) AS task_count
-                            FROM to_do_list
-                            LEFT JOIN tasks ON to_do_list.id = tasks.list_id
-                            WHERE to_do_list.user_id = ?
-                            GROUP BY to_do_list.id
-                        ");
-                        $stmt->execute([$userId]);
+        <div class="card-header bg-success text-white">Your To-Do Lists</div>
+        <div class="card-body">
+    
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    $stmt = $conn->prepare("
+                        SELECT id, title, description, due_date, status
+                        FROM to_do_list
+                        WHERE user_id = ?
+                    ");
+                    $stmt->execute([$userId]);
+                    $lists = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                        if (count($result) > 0) {
-                            foreach ($result as $row) {
-                                echo "<tr>";
-                                echo "<td>" . htmlspecialchars($row['title']) . "</td>";
-                                echo "<td>" . $row['task_count'] . "</td>";
-                                echo "<td>";
-                                echo "<a href='view_list.php?id=" . $row['id'] . "' class='btn btn-info btn-sm'>View</a> ";
-                                echo "<a href='delete_list.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this list?\");'>Delete</a>";
-                                echo "</td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='3'>No lists found.</td></tr>";
+                    if ($lists) {
+                        foreach ($lists as $list) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($list['title']) . "</td>";
+                            echo "<td>" . htmlspecialchars($list['description']) . "</td>";
+                            echo "<td>" . htmlspecialchars($list['due_date']) . "</td>";
+                            echo "<td>" . ucfirst(htmlspecialchars($list['status'])) . "</td>";
+                            echo "<td>
+                                <a href='view_list.php?id=" . $list['id'] . "' class='btn btn-info btn-sm'>Edit</a>
+                                <a href='delete_list.php?id=" . $list['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure?\");'>Delete</a>
+                              </td>";
+                            echo "</tr>";
+                            
                         }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+                    } else {
+                        echo "<tr><td colspan='5'>No to-do lists found.</td></tr>";
+                    }
+                ?>
+                </tbody>
+            </table>
+           
         </div>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

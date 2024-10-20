@@ -1,31 +1,23 @@
 <?php
-include 'config.php';
+include 'config.php';  
 
-if (isset($_GET['id'])) {
-    $listId = $_GET['id'];
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $listId = $_GET['id'];  
 
-    $conn->begin_transaction();
+    $stmt = $conn->prepare("SELECT title FROM to_do_list WHERE id = ?");
+    $stmt->execute([$listId]);
+    $ToDo = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    try {
-        $stmt = $conn->prepare("DELETE FROM tasks WHERE list_id = ?");
-        $stmt->bind_param("i", $listId);
-        $stmt->execute();
-        $stmt->close();
+    if ($ToDo) {
+        $delete_stmt = $conn->prepare("DELETE FROM to_do_list WHERE id = ?");
+        $delete_stmt->execute([$listId]);
 
-        $stmt = $conn->prepare("DELETE FROM to_do_list WHERE id = ?");
-        $stmt->bind_param("i", $listId);
-        $stmt->execute();
-        $stmt->close();
-
-        $conn->commit();
         header("Location: dashboard.php");
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo "Error: " . $e->getMessage();
+        exit;
+    } else {
+        echo "To-do list not found!";
     }
 } else {
-    echo "Invalid request.";
+    echo "Invalid ID!";
 }
-
-$conn->close();
 ?>

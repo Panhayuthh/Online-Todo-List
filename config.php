@@ -12,6 +12,6 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Database connection failed: " . $e->getMessage();
-    exit();  // Stop script execution if the connection fails
+    exit();    
 }
 ?>
