@@ -91,99 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Create List
             </button>
         </form>
-<div class="modal fade" id="descriptionModal" tabindex="-1" role="dialog" aria-labelledby="descriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form method="POST" action="dashboard.php">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="descriptionModalLabel">Add To-Do List</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="listTitle">Title</label>
-                        <input type="text" class="form-control" id="listTitle" name="listTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" class="form-control" rows="4" placeholder="Add more details..." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="due_date">Due Date:</label>
-                        <input type="date" class="form-control" id="due_date" name="due_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Status:</label>
-                        <select class="form-control" id="status" name="status" required>
-                            <option value="not_started">Not Started</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="completed">Completed</option>
-                        </select>
-                    </div>
-  
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" >Create List</button>
-                </div>
-            </form>
-            
-        </div>
-    </div>
-</div>
-
-
+        <!-- modal to create list -->
+    <?php
+        include("modal_createList.php");
+    ?>
         <!-- Display To-Do Lists -->
-        <div class="card mb-4">
-        <div class="card-header bg-success text-white">Your To-Do Lists</div>
-        <div class="card-body">
-    
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Due Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php
-                    $stmt = $conn->prepare("
-                        SELECT id, title, description, due_date, status
-                        FROM to_do_list
-                        WHERE user_id = ?
-                    ");
-                    $stmt->execute([$userId]);
-                    $lists = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                    if ($lists) {
-                        foreach ($lists as $list) {
-                            echo "<tr>";
-                            echo "<td>" . htmlspecialchars($list['title']) . "</td>";
-                            echo "<td>" . htmlspecialchars($list['description']) . "</td>";
-                            echo "<td>" . htmlspecialchars($list['due_date']) . "</td>";
-                            echo "<td>" . ucfirst(htmlspecialchars($list['status'])) . "</td>";
-                            echo "<td>
-                                <a href='view_list.php?id=" . $list['id'] . "' class='btn btn-info btn-sm'>Edit</a>
-                                <a href='delete_list.php?id=" . $list['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure?\");'>Delete</a>
-                              </td>";
-                            echo "</tr>";
-                            
-                        }
-                    } else {
-                        echo "<tr><td colspan='5'>No to-do lists found.</td></tr>";
-                    }
-                ?>
-                </tbody>
-            </table>
-           
-        </div>
-    </div>
-    </div>
+    <?php 
+        include("viewToDoList.php");
+    ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
