@@ -88,12 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <form id="todoForm" method="POST" action="create_todo.php" class="mb-4">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#descriptionModal">
-                Create List
+                Create A Task
             </button>
         </form>
         <!-- modal to create list -->
     <?php
-        include("modal_createList.php");
+        include("createTask.php");
     ?>
         <!-- Display To-Do Lists -->
     <?php 
