@@ -50,7 +50,7 @@ $email = "User@gmail.com";
                 <p>Welcome, <strong><?php echo htmlspecialchars($username); ?></strong>! Here is an overview of your existing to-do lists:</p>
                 <ul>
                     <?php
-                    $stmt = $kunci->prepare("
+                    $stmt = $conn->prepare("
                         SELECT title, COUNT(tasks.id) AS task_count
                         FROM to_do_list
                         LEFT JOIN tasks ON to_do_list.id = tasks.list_id
@@ -102,7 +102,7 @@ $email = "User@gmail.com";
                     </thead>
                     <tbody>
                         <?php
-                        $stmt = $kunci->prepare("
+                        $stmt = $conn->prepare("
                             SELECT to_do_list.id, to_do_list.title, COUNT(tasks.id) AS task_count
                             FROM to_do_list
                             LEFT JOIN tasks ON to_do_list.id = tasks.list_id

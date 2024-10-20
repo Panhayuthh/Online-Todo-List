@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $listTitle = trim($_POST['listTitle']);
     $userId = $_SESSION['user_id']; 
 
-    $stmt = $kunci->prepare("INSERT INTO to_do_list (user_id, title) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO to_do_list (user_id, title) VALUES (?, ?)");
 
     if ($stmt->execute([$userId, $listTitle])) {
         header("Location: dashboard.php");

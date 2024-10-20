@@ -23,15 +23,15 @@
                 <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Password" required>
                 <input type="password" name="confirm_password" class="form-control mb-3 text-center" placeholder="Confirm Password" required>
                 <button type="submit" class="btn btn-outline-success btn-block mt-3">Register</button>
-                <a href="loginpage.php">Already have an account?</a>
-
+                <a href="index.php">Already have an account?</a>
+<!-- 
                 <div class="col-12 mt-4">
                     <ul class="social-network list-inline">
                         <li class="list-inline-item"><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f fa-2x text-white"></i></a></li>
                         <li class="list-inline-item"><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter fa-2x text-white"></i></a></li>
                         <li class="list-inline-item"><a href="#" class="icoGoogle" title="Google+"><i class="fab fa-google-plus fa-2x text-white"></i></a></li>
                     </ul>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>

@@ -7,9 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM user WHERE email = :email";
-    $stmt = $kunci->prepare($sql);
-    $stmt->execute(['email' => $email]);
+    $sql = "SELECT * FROM user WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$email]);
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         } else {
             $_SESSION['error'] = "Invalid email or password!"; 
-            header('Location: loginpage.php'); 
+            header('Location: index.php'); 
             exit();
         }
     } else {

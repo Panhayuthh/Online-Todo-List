@@ -28,13 +28,13 @@
                 <button type="submit" class="btn btn-outline-success btn-block mt-3">Login</button>
                 <a href="registration.php">Don't have an account?</a>
 
-                <div class="col-12 mt-4">
+                <!-- <div class="col-12 mt-4">
                     <ul class="social-network list-inline">
                         <li class="list-inline-item"><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f fa-2x text-white"></i></a></li>
                         <li class="list-inline-item"><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter fa-2x text-white"></i></a></li>
                         <li class="list-inline-item"><a href="#" class="icoGoogle" title="Google+"><i class="fab fa-google-plus fa-2x text-white"></i></a></li>
                     </ul>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>

@@ -1,0 +1,22 @@
+# Ignore all log files
+*.log
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore all files in the build directory
+build/
+
+# Ignore specific file
+config/settings.json
+
+# Ignore all .DS_Store files (Mac OS)
+**/.DS_Store
+
+# Ignore all .env files
+.env
+
+# Ignore all files ending with .tmp
+*.tmp
+
+/vendor/

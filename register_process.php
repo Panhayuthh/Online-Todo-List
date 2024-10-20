@@ -11,17 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Passwords do not match!";
         exit();
     }
+    
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     try {
-        $sql = "INSERT INTO user (username, email, password) VALUES (:username, :email, :password)";
-        $stmt = $kunci->prepare($sql);
+        $query = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($query);
 
-        if ($stmt->execute([
-            ':username' => $username,
-            ':email' => $email,
-            ':password' => $hashed_password
-        ])) {
+        if ($stmt->execute([$username, $email, $hashed_password])) {
             echo "Registration successful!";
             header('Location: loginpage.php'); 
             exit();
