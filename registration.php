@@ -9,32 +9,29 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+    body{
+        background-color: #3b7ddd;
+    }
+</style>
 </head>
-<body style="background-image: url('user/theme.png'); background-size: cover; background-repeat: no-repeat;" class="text-center bg-dark">
-
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="card p-4" style="width: 400px; background-color: #1c1c1c;">
-            <form action="register_process.php" class="box" method="post">
-                <h1 class="text-white">SIGN IN</h1>
-                <p class="text-muted">Please enter your information!</p>
-                <input type="text" name="username" class="form-control mb-3 text-center" placeholder="Username" required>
-                <input type="email" name="email" class="form-control mb-3 text-center" placeholder="Email" required>
-                <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Password" required>
-                <input type="password" name="confirm_password" class="form-control mb-3 text-center" placeholder="Confirm Password" required>
-                <button type="submit" class="btn btn-outline-success btn-block mt-3">Register</button>
-                <a href="index.php">Already have an account?</a>
-<!-- 
-                <div class="col-12 mt-4">
-                    <ul class="social-network list-inline">
-                        <li class="list-inline-item"><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f fa-2x text-white"></i></a></li>
-                        <li class="list-inline-item"><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter fa-2x text-white"></i></a></li>
-                        <li class="list-inline-item"><a href="#" class="icoGoogle" title="Google+"><i class="fab fa-google-plus fa-2x text-white"></i></a></li>
-                    </ul>
-                </div> -->
-            </form>
-        </div>
+<div class="container d-flex justify-content-center align-items-center text-center" style="min-height: 100vh ">
+    <div class="card" style="height:500px; background-color: #FFFFFF">
+        <form action="register_process.php" class="box mt-5" method="post">
+            <h1 class="text-black">Create an account</h1>
+            <p class="text-muted">Please enter your information!</p>
+            <!-- Adjusting the width of input boxes -->
+            <input type="text" name="username" class="form-control text-center mb-3" placeholder="Username" style="width: 70%; margin: 0 auto;" required>
+            <input type="email" name="email" class="form-control mb-3 text-center" placeholder="Email" style="width: 70%; margin: 0 auto" required>
+            <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Password" style="width: 70%; margin: 0 auto;" required>
+            <input type="password" name="confirm_password" class="form-control mb-3 text-center" placeholder="Confirm Password" style="width: 70%; margin: 0 auto;" required>
+            <button type="submit" class="btn btn-primary btn-block mt-3 text-white mb-2" style="width: 70%; margin: 0 auto;">Register</button>
+            <a href="index.php">Already have an account?</a>
+        </form>
     </div>
+</div>
+
     
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

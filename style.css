@@ -143,6 +143,47 @@ a.sidebar-link:hover {
     transition: all .2s ease-out;
 }
 
+
+
+.card {
+  border-radius: 30px;
+  padding: 30px;
+  
+}
+
+input {
+  border: 2px solid #00aaff;
+  border-radius: 30px;
+  background-color: transparent;
+  color: white;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+a.forgot {
+  text-decoration: none;
+  color: #b3b3b3;
+}
+
+.sidebar-link i {
+    font-size: 1.1rem;
+    margin-right: .75rem;
+}
+
+a.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, .075);
+    border-left: 3px solid #3b7ddd;
+}
+
+button {
+  border-radius: 30px;
+}
+
+
+
+
 .table td:last-child {
   width: 60px; /* Set a fixed width for the last column */
   text-align: center; /* Center align the dropdown icon */

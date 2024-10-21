@@ -6,11 +6,17 @@
     <title>Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-dark text-center">
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="card p-4" style="width: 400px; background-color: #1c1c1c;">
+<style>
+    body{
+        background-color: #3b7ddd;
+    }
+</style>
+<body>
+    
+<div class="container-fluid d-flex justify-content-center align-items-center text-center" style="min-height: 100vh ;width: 700px ; ">
+        <div class="card p-5" sstyle="width: 800px; height:900px ">
             <?php
             session_start(); 
 
@@ -19,23 +25,28 @@
                 unset($_SESSION['error']); 
             }
             ?>
-            <form action="login_process.php" method="post">
-                <h1 class="text-white">LOGIN</h1>
-                <p class="text-muted">Please enter your email and password!</p>
-                <input type="email" name="email" class="form-control mb-3 text-center" placeholder="Email" required>
-                <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Password" required>
-                <a class="forgot text-muted" href="#">Forgot password?</a>
-                <button type="submit" class="btn btn-outline-success btn-block mt-3">Login</button>
+           <form action="login_process.php" method="post" class="text-left">
+            <h1 class="text-black text-center">Welcome Back!</h1>
+            <p class="text-muted text-center">Please enter your email and password!</p>
+            
+            <!-- Email Label and Input -->
+            <div class="form-group">
+                <label for="email" class="text-left">Email:</label>
+                <input type="email" name="email" class="form-control mb-3" placeholder="Enter your email" style="width: 100%; margin: 0 auto;" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password" class="text-left">Password:</label>
+                <input type="password" name="password" class="form-control mb-3" placeholder="Enter your password" style="width: 100%; margin: 0 auto;" required>
+            </div>
+            
+            <a class="forgot text-muted text-center" href="#">Forgot password?</a>
+            <button type="submit" class="btn btn-primary btn-block mt-3 text-white mb-2" style="width: 70%; margin: 0 auto;">LogIn</button>
+            
+            <div class="text-center mt-2">
                 <a href="registration.php">Don't have an account?</a>
-
-                <!-- <div class="col-12 mt-4">
-                    <ul class="social-network list-inline">
-                        <li class="list-inline-item"><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f fa-2x text-white"></i></a></li>
-                        <li class="list-inline-item"><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter fa-2x text-white"></i></a></li>
-                        <li class="list-inline-item"><a href="#" class="icoGoogle" title="Google+"><i class="fab fa-google-plus fa-2x text-white"></i></a></li>
-                    </ul>
-                </div> -->
-            </form>
+            </div>
+        </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

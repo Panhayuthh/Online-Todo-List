@@ -6,6 +6,8 @@
 -- Generation Time: Oct 20, 2024 at 12:50 PM
 -- Server version: 8.0.37
 -- PHP Version: 8.2.12
+CREATE DATABASE todo_list_db;
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
