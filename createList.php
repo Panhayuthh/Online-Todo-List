@@ -11,7 +11,7 @@
         $stmt = $conn->prepare($query);
         $stmt->execute([$userId, $listTitle]);
 
-        header("Location: dashboardV2.php");
+        header("Location: index.php");
         exit;
     }
 

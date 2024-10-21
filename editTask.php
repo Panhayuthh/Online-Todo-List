@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare($query);
     $stmt->execute([$taskName, $description, $dueDate, $status, $priority, $taskId]);
 
-    header("Location: dashboardV2.php");
+    header("Location: index.php");
     exit;
 
 }

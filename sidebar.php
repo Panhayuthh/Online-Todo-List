@@ -16,7 +16,7 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link">
+            <a href="listView.php" class="sidebar-link">
                 <i class="lni lni-layout"></i>
                 <span>List View</span>
             </a>
@@ -30,7 +30,7 @@
     </ul>
     <div class="sidebar-footer">
         <li class="sidebar-item">
-            <a href="index.php" class="sidebar-link">
+            <a href="login.php" class="sidebar-link">
                 <i class="lni lni-exit"></i>
                 <span>Logout</span>
             </a>

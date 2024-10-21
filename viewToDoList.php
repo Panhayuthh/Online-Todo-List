@@ -138,8 +138,8 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
 
-        <?php require 'edit_modal.php'; ?>
-        <?php require 'delete_task.php'; ?>
+        <?php require 'editTask.php'; ?>
+        <?php require 'deleteTask.php'; ?>
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" id="pagination">

@@ -18,7 +18,7 @@
 </head>
 <div class="container d-flex justify-content-center align-items-center text-center" style="min-height: 100vh ">
     <div class="card" style="height:500px; background-color: #FFFFFF">
-        <form action="register_process.php" class="box mt-5" method="post">
+        <form action="registerationProcess.php" class="box mt-5" method="post">
             <h1 class="text-black">Create an account</h1>
             <p class="text-muted">Please enter your information!</p>
             <!-- Adjusting the width of input boxes -->
@@ -27,7 +27,7 @@
             <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Password" style="width: 70%; margin: 0 auto;" required>
             <input type="password" name="confirm_password" class="form-control mb-3 text-center" placeholder="Confirm Password" style="width: 70%; margin: 0 auto;" required>
             <button type="submit" class="btn btn-primary btn-block mt-3 text-white mb-2" style="width: 70%; margin: 0 auto;">Register</button>
-            <a href="index.php">Already have an account?</a>
+            <a href="login.php">Already have an account?</a>
         </form>
     </div>
 </div>
