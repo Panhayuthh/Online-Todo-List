@@ -10,11 +10,6 @@
         $priority = $_POST['priority'];
         $created_at = date('Y-m-d H:i:s');
 
-        // $title = $_POST['listTitle'];
-        // $description = $_POST['description'];
-        // $due_date = $_POST['due_date'];
-        // $status = $_POST['status'];
-
         $query = "INSERT INTO task (todo_list_id, name, description, due_date, status, priority, createAt) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->execute([$todoListId, $name, $description, $due_date, $status, $priority, $created_at]);

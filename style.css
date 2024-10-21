@@ -142,3 +142,22 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+
+.table td:last-child {
+  width: 60px; /* Set a fixed width for the last column */
+  text-align: center; /* Center align the dropdown icon */
+  position: relative; /* Position relative for dropdown */
+}
+
+.dropdown {
+  display: inline-block; /* Ensure dropdown is inline with the icon */
+}
+
+.dropdown-menu {
+  min-width: 100px; /* Adjust minimum width of the dropdown */
+  z-index: 1000; /* Ensure dropdown appears above other elements */
+}
+
+.dropdown-toggle::after {
+  display: none; /* Hide default dropdown arrow */
+}
