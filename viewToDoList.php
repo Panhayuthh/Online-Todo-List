@@ -1,4 +1,4 @@
-<!-- HTML and Table Code -->
+
 <div class="card mb-4">
     <div class="card-header">
         <i class="fas fa-clipboard-list me-1"></i> To-Do Lists Overview
@@ -33,10 +33,11 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Description</th>
+                    <th>Task</th>
+                    <th>List</th>
                     <th>Due Date</th>
                     <th>Status</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -49,7 +50,7 @@
                 $searchQuery = isset($_GET['search_query']) ? $_GET['search_query'] : '';
                 $params = [$userId]; // Start with the userId as the initial parameter
                 
-                $sql = "SELECT t.id, t.name, t.description, t.due_date, t.status 
+                $sql = "SELECT t.id, t.name, l.title, t.description, t.due_date, t.status 
                         FROM task t 
                         JOIN to_do_list l ON t.todo_list_id = l.id 
                         WHERE l.user_id = ?";
@@ -75,9 +76,10 @@
                     foreach ($lists as $list) {
                         echo "<tr>";
                         echo "<td>" . htmlspecialchars($list['name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($list['description']) . "</td>";
+                        echo "<td>" . htmlspecialchars($list['title']) . "</td>";
                         echo "<td>" . htmlspecialchars($list['due_date']) . "</td>";
                         echo "<td>" . ucfirst(htmlspecialchars($list['status'])) . "</td>";
+                        echo "<td>" . htmlspecialchars($list['description']) . "</td>";
                         echo "<td>
                             <a href='view_list.php?id=" . $list['id'] . "' class='btn btn-info btn-sm'>Edit</a>
                             <a href='delete_list.php?id=" . $list['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure?\");'>Delete</a>
