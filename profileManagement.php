@@ -24,7 +24,7 @@ if (!$user) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
-    $password = $_POST['password'] ?? ''; 
+    $hashedPassword = ''; // Initialize to avoid undefined variable error
 
     // Start building the update query
     $updates = [];
@@ -41,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Handle password change
-    if (!empty($password)) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    if (!empty($_POST['password'])) {
+        $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $updates[] = "password = ?";
         $params[] = $hashedPassword;
     }
@@ -54,7 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare($updateQuery);
         $stmt->execute($params);
     }
-    
+
+    // Fetch updated user data after the changes
+    $stmt = $conn->prepare("SELECT * FROM user WHERE id = ?");
+    $stmt->execute([$id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Redirect to the profile management page after update
     header("Location: profileManagement.php");
     exit();
 }
@@ -85,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Content -->
         <div class="container-fluid">
-            <div class="container mt-5 col-4">
+            <div class="container mt-5 col-7">
                 <div class="card p-4 shadow-sm">
                     <div class="d-flex align-items-center">
                         <img id="profilePreview" 
@@ -156,11 +162,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <h6>Password</h6>
-                            <p class="text-muted mb-0">*******</p> <!-- Hide the actual password -->
+                            <p class="text-muted mb-0">*******</p>                    
                         </div>
                     </div>
                 </div>
-            </div>
         
             <!-- Edit Profile Modal -->
             <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
@@ -195,6 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
