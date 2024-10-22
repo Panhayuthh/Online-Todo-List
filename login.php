@@ -12,6 +12,12 @@
     body{
         background-color: #3b7ddd;
     }
+
+    .card {
+        border-radius: 30px;
+        padding: 30px;
+        
+    }
 </style>
 <body>
     

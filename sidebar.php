@@ -5,12 +5,12 @@
             <i class="lni lni-grid-alt"></i>
         </button>
         <div class="sidebar-logo">
-            <a href="dashboardV2.php">Todo List</a>
+            <a href="index.php">Todo List</a>
         </div>
     </div>
     <ul class="sidebar-nav">
         <li class="sidebar-item">
-            <a href="dashboardV2.php" class="sidebar-link">
+            <a href="index.php" class="sidebar-link">
                 <i class="lni lni-agenda"></i>
                 <span>Table View</span>
             </a>
