@@ -88,46 +88,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="wrapper">
         <!-- Sidebar -->
         <?php require 'sidebar.php'; ?>
+        
 
         <!-- Content -->
-        <div class="container-fluid">
-            <div class="container mt-5 col-7">
-                <div class="card p-4 shadow-sm">
-                    <div class="d-flex align-items-center">
-                        <img id="profilePreview" 
-                             src="<?= isset($user['profile_picture']) && !empty($user['profile_picture']) ? 'userprofile/' . htmlspecialchars($user['profile_picture']) : 'https://via.placeholder.com/100' ?>" 
-                             alt="Profile Photo" 
-                             class="rounded-circle me-4" 
-                             style="width: 100px; height: 100px; object-fit: cover">
-                        <div>
-                            <h4 class="mb-0"><?= htmlspecialchars($user['username']) ?></h4>
-                            <!-- <p class="text-muted mb-1">Personalize your account with a photo.<br>Your profile photo will appear on apps and devices that use your account.</p> -->
-                            <button type="button" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#changeProfile">
-                                Change Photo
-                            </button>
-                        </div>
+        <div class="container mt-5 col-md-6">
+        <div class="card p-4 shadow-sm">
+            <div class="d-flex align-items-center">
+                <img id="profilePreview" 
+                     src="<?= isset($user['profile_picture']) && !empty($user['profile_picture']) ? 'userprofile/' . htmlspecialchars($user['profile_picture']) : 'https://via.placeholder.com/100' ?>" 
+                     alt="Profile Photo" 
+                     class="rounded-circle me-4" 
+                     style="width: 100px; height: 100px; object-fit: cover">
+                <div>
+                    <h4 class="mb-0"><?= htmlspecialchars($user['username']) ?></h4>
+                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#changeProfile">
+                        Change Photo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Profile Picture Modal -->
+        <div class="modal fade" id="changeProfile" tabindex="-1" aria-labelledby="changeProfileLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Change Profile Picture</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="upload.php" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input type="file" name="photo" class="form-control" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
                     </div>
                 </div>
-        
-                <!-- Change Profile Picture Modal -->
-                <div class="modal fade" id="changeProfile" tabindex="-1" aria-labelledby="changeProfileLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Change Profile Picture</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="upload.php" method="post" enctype="multipart/form-data">
-                                    <div class="mb-3">
-                                        <input type="file" name="userprofile" class="form-control" accept="image/*" required>
-                                    </div>
-                                    <button type="submit" name="submit" class="btn btn-primary">Upload</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
         
                 <?php
                 // Display success or error messages
@@ -204,5 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+
+    
 </body>
 </html>
