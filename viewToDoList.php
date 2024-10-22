@@ -61,7 +61,7 @@ $sql .= " ORDER BY t.status DESC
 
 $stmt = $conn->prepare($sql);
 $stmt->execute($params);
-$tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="card mb-4">
@@ -109,25 +109,25 @@ $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </thead>
             <tbody>
                 <?php
-                if (empty($tables)) {
+                if (empty($tasks)) {
                     echo "<tr><td colspan='7'>No to-do lists found.</td></tr>";
                 } else {
-                    foreach ($tables as $table) {
+                    foreach ($tasks as $task) {
                         echo "<tr>";
-                        echo "<td>" . htmlspecialchars($table['name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($table['title']) . "</td>";
-                        echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($table['due_date']))) . "</td>";
-                        echo "<td>" . ucfirst(htmlspecialchars($table['status'])) . "</td>";
-                        echo "<td>" . htmlspecialchars($table['priority']) . "</td>";
-                        echo "<td>" . htmlspecialchars($table['description']) . "</td>";
+                        echo "<td>" . htmlspecialchars($task['name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($task['title']) . "</td>";
+                        echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($task['due_date']))) . "</td>";
+                        echo "<td>" . ucfirst(htmlspecialchars($task['status'])) . "</td>";
+                        echo "<td>" . htmlspecialchars($task['priority']) . "</td>";
+                        echo "<td>" . htmlspecialchars($task['description']) . "</td>";
                         echo "<td>
                             <div class='dropdown'>
                                 <a class='link' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
                                     <i class='fas fa-ellipsis-v'></i>
                                 </a>
                                 <ul class='dropdown-menu'>
-                                    <li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editTaskModal" . $table['id'] . "'>Edit</a></li>
-                                    <li><a class='dropdown-item' href='delete_task.php?id=" . $table['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a></li>
+                                    <li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editTaskModal" . $task['id'] . "'>Edit</a></li>
+                                    <li><a class='dropdown-item' href='deleteTask.php?id=" . $task['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a></li>
                                 </ul>
                             </div>
                         </td>";

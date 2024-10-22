@@ -1,14 +1,19 @@
 <?php
     require 'config.php';
+
     session_start();
+    $userId = $_SESSION['id'];
 
     if(!isset($_SESSION['id'])){
         header("Location: login.php");
     }
 
-    $userId = $_SESSION['id'];
-
     require_once 'createList.php';
+
+    $listQuery = "SELECT * FROM to_do_list WHERE user_id = ?";
+    $stmt = $conn->prepare($listQuery);
+    $stmt->execute([$userId]);
+    $toDoLists = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -31,35 +36,11 @@
         <?php require 'sidebar.php'; ?>
 
         <!-- Content -->
-        <div class="main">
-            <!-- <div class="container my-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title">My To-Do Lists</h1>
-                        <div class="container my-5">
-                            <ul class="list-group">
-                                <?php
-        
-                                $listQuery = "SELECT * FROM to_do_list WHERE user_id = ?";
-                                $stmt = $conn->prepare($listQuery);
-                                $stmt->execute([$userId]);
-                                $toDoLists = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-                                foreach ($toDoLists as $list) {
-                                    echo "<li class='list-group-item'>";
-                                    echo htmlspecialchars($list['title']);
-                                    echo "</li>";
-                                }
-                                ?>
-                            </ul>
-                            <a href="createList.php" class="btn btn-primary mt-3">+ Create new list</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        
+        <div class="main">     
             <div class="container my-5">
-                <h1 class="card-title">My To-Do Lists</h1>
+                <div class="row mb-3">
+                    <h1>My To-Do Lists</h1>
+                </div>
                 <div class="row my-3">
                     <div class="col">
                         <h2 class="m-0">Tasks</h2>
@@ -88,12 +69,25 @@
                         if ($tasks) {
                             foreach ($tasks as $task) {
                                 echo "<div class='card mb-2'>";
+                                echo "<div class='card-header d-flex justify-content-between align-items-center'>";
+                                echo "<h6 class='card-title m-0'>" . htmlspecialchars($task['name']) . "</h6>";
+                                echo "<div class='dropdown'>";
+                                echo "<a class='link' role='button' data-bs-toggle='dropdown' aria-expanded='false'>";
+                                echo "<i class='fas fa-ellipsis-v'></i>";
+                                echo "</a>";
+                                echo "<ul class='dropdown-menu'>";
+                                echo "<li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editTaskModal" . $task['id'] . "'>Edit</a></li>";
+                                echo "<li><a class='dropdown-item' href='deleteTask.php?id=" . $task['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a></li>";
+                                echo "</ul>";
+                                echo "</div>";
+                                echo "</div>";
                                 echo "<div class='card-body'>";
-                                echo "<h6 class='card-title'>" . htmlspecialchars($task['name']) . "</h6>";
                                 echo "<p class='card-text'>Status: " . htmlspecialchars($task['status']) . "</p>";
                                 echo "<p class='card-text'>Due Date: " . htmlspecialchars(date('d-m-Y', strtotime($task['due_date']))) . "</p>";
+                                echo $task['id'];
                                 echo "</div>";
                                 echo "</div>";
+                                require 'editTask.php';
                             }
                         } else {
                             echo "<p>No tasks found for this list.</p>";
@@ -103,13 +97,17 @@
                         echo "</div>";
                         echo "</div>";
                     }
+
+                    require 'deleteTask.php';
                     ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 

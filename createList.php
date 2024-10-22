@@ -1,13 +1,16 @@
 <?php
+    require 'config.php';
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $listTitle = trim($_POST['listTitle']);
+        session_start();
         $userId = $_SESSION['id'];
 
         $query = "INSERT INTO to_do_list (user_id, title) VALUES (?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->execute([$userId, $listTitle]);
 
-        header("Location: index.php");
+        header("Location: listView.php");
         exit;
     }
 

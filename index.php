@@ -1,12 +1,12 @@
 <?php
     require 'config.php';
+    
     session_start();
+    $userId = $_SESSION['id'];
 
     if(!isset($_SESSION['id'])){
         header("Location: login.php");
     }
-
-    $userId = $_SESSION['id'];
 ?>
 
 <!doctype html>
