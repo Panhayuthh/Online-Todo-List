@@ -14,7 +14,7 @@
         $stmt = $conn->prepare($query);
         $stmt->execute([$todoListId, $name, $description, $due_date, $status, $priority, $created_at]);
 
-        header("Location: dashboardV2.php");
+        header("Location: index.php");
         exit;
     }
 ?>

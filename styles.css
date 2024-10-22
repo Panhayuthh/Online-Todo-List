@@ -27,12 +27,14 @@ body {
 
 .wrapper {
     display: flex;
+    height: 100vh;
 }
 
 .main {
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     transition: all 0.35s ease-in-out;
     background-color: #fafbfe;
 }
@@ -45,7 +47,6 @@ body {
     background-color: #0e2238;
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 
 #sidebar.expand {
@@ -147,53 +148,44 @@ a.sidebar-link:hover {
     width: 60px; /* Set a fixed width for the last column */
     text-align: center; /* Center align the dropdown icon */
     position: relative; /* Position relative for dropdown */
-  }
+}
   
   .dropdown {
     display: inline-block; /* Ensure dropdown is inline with the icon */
-  }
+}
   
   .dropdown-menu {
     min-width: 100px; /* Adjust minimum width of the dropdown */
     z-index: 1000; /* Ensure dropdown appears above other elements */
-  }
+}
   
   .dropdown-toggle::after {
     display: none; /* Hide default dropdown arrow */
-  }
-
-  
-input {
-  border: 2px solid #00aaff;
-  border-radius: 30px;
-  background-color: transparent;
-  color: white;
 }
 
-input::placeholder {
-  color: #aaa;
+  #list {
+    display: flex;
+    flex-wrap: nowrap; /* Ensure the cards don't wrap to the next line */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding-bottom: 1rem; /* Add some space at the bottom to avoid cut-off */
 }
 
-a.forgot {
-  text-decoration: none;
-  color: #b3b3b3;
+#list .col-3 {
+    flex: 0 0 auto; /* Prevent the columns from shrinking */
+    width: 250px; /* Set a fixed width for each card */
+    margin-right: 1rem; /* Add space between cards */
 }
 
-.sidebar-link i {
-    font-size: 1.1rem;
-    margin-right: .75rem;
+/* Optional: Add a scrollbar styling */
+#list::-webkit-scrollbar {
+    height: 10px;
 }
 
-a.sidebar-link:hover {
-    background-color: rgba(255, 255, 255, .075);
-    border-left: 3px solid #3b7ddd;
+#list::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar color */
+    border-radius: 10px;
 }
 
-button {
-  border-radius: 30px;
+#list::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
 }
-
-
-
-
-
