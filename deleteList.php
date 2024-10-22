@@ -12,7 +12,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $delete_stmt = $conn->prepare("DELETE FROM to_do_list WHERE id = ?");
         $delete_stmt->execute([$listId]);
 
-        header("Location: index.php");
+        header("Location: listView.php");
         exit;
     } else {
         echo "To-do list not found!";

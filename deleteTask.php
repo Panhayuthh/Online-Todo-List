@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
         $delete_stmt = $conn->prepare("DELETE FROM task WHERE id = ?");
         if ($delete_stmt->execute([$taskId])) {
             // Optionally, set a session message for feedback
-            header("Location: index.php?message=Task deleted successfully");
+            header("Location: listView.php?message=Task deleted successfully");
         } else {
             echo "Failed to delete task!";
         }

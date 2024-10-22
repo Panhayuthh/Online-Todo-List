@@ -63,8 +63,22 @@
         
                         echo "<div class='col-3 mb-3 p-0'>";
                         echo "<div class='card'>";
-                        echo "<h5 class='card-header bg-danger-subtle'>" . htmlspecialchars($list['title']) . "</h5>";
+                        echo "<div class='card-header bg-danger-subtle d-flex justify-content-between align-items-center'>";
+                        echo "<h5 class='m-0'>" . htmlspecialchars($list['title']) . "</h5>";
+                        echo "<div class='dropdown'>";
+                        echo "<a class='link' role='button' data-bs-toggle='dropdown' aria-expanded='false'>";
+                        echo "<i class='fas fa-ellipsis-v'></i>";  // The three dots icon
+                        echo "</a>";
+                        echo "<ul class='dropdown-menu'>";
+                        echo "<li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editListModal" . $list['id'] . "'>Edit List</a></li>";
+                        echo "<li><a class='dropdown-item' href='deleteList.php?id=" . $list['id'] . "' onclick='return confirm(\"Are you sure you want to delete this list?\");'>Delete List</a></li>";
+                        echo "</ul>";
+                        echo "</div>";
+                        echo "</div>";
+
                         echo "<div class='card-body'>";
+                        
+
         
                         if ($tasks) {
                             foreach ($tasks as $task) {
@@ -101,6 +115,7 @@
                     require 'deleteTask.php';
                     ?>
                 </div>
+
             </div>
         </div>
     </div>
