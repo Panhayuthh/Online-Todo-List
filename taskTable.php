@@ -5,7 +5,7 @@ $userId = $_SESSION['id'];
 
 // Get the current page number
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$limit = 8; // Number of tasks per page
+$limit = 5; // Number of tasks per page
 $offset = ($page - 1) * $limit;
 
 // Get filters
@@ -68,7 +68,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="card mb-4 shadow-sm" id="tableCard">
     <div class="card-header">
-        To-Do Lists Overview
+    <h4 class="my-0 font-weight-normal">Tasks Overview</h4>
     </div>
     <div class="card-body">
         <!-- Filter and Search Form -->
@@ -79,7 +79,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         Create A Task
                     </button>
                 </div>
-                <div class="mb-3 col-xl-4">
+                <div class="mb-3 col-xl-3">
                     <select name="status_filter" class="form-select">
                         <option value="">All Tasks</option>
                         <option value="completed" <?php echo isset($_GET['status_filter']) && $_GET['status_filter'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
@@ -89,7 +89,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="mb-3 col-sm-8 col-xl-4">
                     <input type="text" name="search_query" class="form-control w-100" placeholder="Search tasks..." value="<?php echo isset($_GET['search_query']) ? htmlspecialchars($_GET['search_query']) : ''; ?>">
                 </div>
-                <div class="mb-3 col-sm-4 col-xl-1">
+                <div class="mb-3 col-sm-4 col-xl-2">
                     <button type="submit" class="btn btn-outline-primary w-100">Apply</button>
                 </div>
             </div>

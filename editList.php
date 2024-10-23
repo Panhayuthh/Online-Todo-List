@@ -23,7 +23,7 @@
         $stmt = $conn->prepare($query);
         $stmt->execute([$listTitle, $listId]);
 
-        header("Location: listView.php");
+        header("Location: index.php");
         exit;
     }
 ?>

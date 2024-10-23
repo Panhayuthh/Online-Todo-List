@@ -66,7 +66,7 @@
                                     $query = (" SELECT COUNT(*) AS task_count FROM task t 
                                                 JOIN to_do_list l ON t.todo_list_id = l.id 
                                                 WHERE l.user_id = ? 
-                                                AND t.status = 'Not Started' OR t.status = 'In Progress'");
+                                                AND (t.status = 'Not Started' OR t.status = 'In Progress')");
 
                                     $stmt = $conn->prepare($query);
                                     $stmt->execute([$userId]);
@@ -103,7 +103,10 @@
 
             <!-- Table View -->
             <div class="container mt-3">
-                <?php require 'viewToDoList.php'; ?>
+                <?php require 'listTable.php'; ?>
+            </div>
+            <div class="container mt-3">
+                <?php require 'taskTable.php'; ?>
             </div>
         </div>
     </div>
