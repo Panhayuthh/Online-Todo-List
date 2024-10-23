@@ -1,4 +1,6 @@
 <?php
+
+require 'deleteTask.php';
 $userId = $_SESSION['id'];
 
 // Get the current page number
@@ -64,82 +66,82 @@ $stmt->execute($params);
 $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<div class="card mb-4">
+<div class="card mb-4 shadow-sm" id="tableCard">
     <div class="card-header">
         To-Do Lists Overview
     </div>
     <div class="card-body">
         <!-- Filter and Search Form -->
-        <form method="GET" class="mb-3">
-            <div class="row justify-content-md-center">
-                <div class="col-md-6">
+        <form method="GET">
+            <div class="row justify-content-md-center row-cols-1 row-cols-sm-2">
+                <div class="mb-3 col-xl-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
                         Create A Task
                     </button>
                 </div>
-                <div class="col-md-2">
+                <div class="mb-3 col-xl-4">
                     <select name="status_filter" class="form-select">
                         <option value="">All Tasks</option>
                         <option value="completed" <?php echo isset($_GET['status_filter']) && $_GET['status_filter'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
                         <option value="incomplete" <?php echo isset($_GET['status_filter']) && $_GET['status_filter'] === 'incomplete' ? 'selected' : ''; ?>>Incomplete</option>
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <input type="text" name="search_query" class="form-control" placeholder="Search tasks..." value="<?php echo isset($_GET['search_query']) ? htmlspecialchars($_GET['search_query']) : ''; ?>">
+                <div class="mb-3 col-sm-8 col-xl-4">
+                    <input type="text" name="search_query" class="form-control w-100" placeholder="Search tasks..." value="<?php echo isset($_GET['search_query']) ? htmlspecialchars($_GET['search_query']) : ''; ?>">
                 </div>
-                <div class="col-md">
-                    <button type="submit" class="btn btn-primary w-100">Apply</button>
+                <div class="mb-3 col-sm-4 col-xl-1">
+                    <button type="submit" class="btn btn-outline-primary w-100">Apply</button>
                 </div>
             </div>
         </form>
 
         <?php require 'taskModal.php'; ?>
 
-        <table class="table table-bordered" id="taskTable">
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>List</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if (empty($tasks)) {
-                    echo "<tr><td colspan='7'>No to-do lists found.</td></tr>";
-                } else {
-                    foreach ($tasks as $task) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($task['name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($task['title']) . "</td>";
-                        echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($task['due_date']))) . "</td>";
-                        echo "<td>" . ucfirst(htmlspecialchars($task['status'])) . "</td>";
-                        echo "<td>" . htmlspecialchars($task['priority']) . "</td>";
-                        echo "<td>" . htmlspecialchars($task['description']) . "</td>";
-                        echo "<td>
-                            <div class='dropdown'>
-                                <a class='link' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                                    <i class='fas fa-ellipsis-v'></i>
-                                </a>
-                                <ul class='dropdown-menu'>
-                                    <li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editTaskModal" . $task['id'] . "'>Edit</a></li>
-                                    <li><a class='dropdown-item' href='deleteTask.php?id=" . $task['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a></li>
-                                </ul>
-                            </div>
-                        </td>";
-                        echo "</tr>";
+        <div class="table-responsive">
+            <table class="table table-bordered" id="taskTable">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>List</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (empty($tasks)) {
+                        echo "<tr><td colspan='7'>No to-do lists found.</td></tr>";
+                    } else {
+                        foreach ($tasks as $task) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($task['name']) . "</td>";
+                            echo "<td>" . htmlspecialchars($task['title']) . "</td>";
+                            echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($task['due_date']))) . "</td>";
+                            echo "<td>" . ucfirst(htmlspecialchars($task['status'])) . "</td>";
+                            echo "<td>" . htmlspecialchars($task['priority']) . "</td>";
+                            echo "<td>" . htmlspecialchars($task['description']) . "</td>";
+                            echo "<td>
+                                <div class='dropdown'>
+                                    <a class='link' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                        <i class='fas fa-ellipsis-v'></i>
+                                    </a>
+                                    <ul class='dropdown-menu'>
+                                        <li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editTaskModal" . $task['id'] . "'>Edit</a></li>
+                                        <li><a class='dropdown-item' href='deleteTask.php?id=" . $task['id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>";
+                            echo "</tr>";
+                            require 'editTask.php';
+                        }
                     }
-                }
-                ?>
-            </tbody>
-        </table>
-
-        <?php require 'editTask.php'; ?>
-        <?php require 'deleteTask.php'; ?>
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" id="pagination">

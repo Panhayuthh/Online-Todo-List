@@ -29,16 +29,16 @@
         
         <!-- Contain Body -->
         <div class="main">
-            <div class="container mt-5">
+            <div class="container mt-4">
                 <div class="row mb-3">
                     <h1>My To-Do Lists</h1>
                 </div>
 
                 <!-- Title Card-->
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header bg-white"></div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                    <div class="col mb-3">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary-subtle"></div>
                             <div class="card-body">
                                 <h5 class="card-title">All Tasks</h5>
                                 <p class="card-text">Total Tasks:</p>
@@ -56,8 +56,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card">
+                    <div class="col mb-3">
+                        <div class="card shadow-sm">
                         <div class="card-header bg-danger-subtle"></div>
                             <div class="card-body">
                                 <h5 class="card-title">Incomplete Tasks</h5>
@@ -77,8 +77,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card">
+                    <div class="col mb-3">
+                        <div class="card shadow-sm">
                             <div class="card-header bg-success-subtle"></div>    
                             <div class="card-body">
                                 <h5 class="card-title">Completed Tasks</h5>
@@ -102,7 +102,7 @@
             </div>
 
             <!-- Table View -->
-            <div class="container mt-5">
+            <div class="container mt-3">
                 <?php require 'viewToDoList.php'; ?>
             </div>
         </div>

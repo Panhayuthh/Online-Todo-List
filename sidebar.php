@@ -30,7 +30,7 @@
     </ul>
     <div class="sidebar-footer">
         <li class="sidebar-item">
-            <a href="login.php" class="sidebar-link">
+            <a href="logout.php" class="sidebar-link">
                 <i class="lni lni-exit"></i>
                 <span>Logout</span>
             </a>

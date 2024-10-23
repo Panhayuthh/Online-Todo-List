@@ -18,11 +18,10 @@
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>To-Do List Dashboard</title>
+    <title>TODO List Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
@@ -37,7 +36,7 @@
 
         <!-- Content -->
         <div class="main">     
-            <div class="container my-5">
+            <div class="container mt-4">
                 <div class="row mb-3">
                     <h1>My To-Do Lists</h1>
                 </div>
@@ -63,11 +62,11 @@
         
                         echo "<div class='col-3 mb-3 p-0'>";
                         echo "<div class='card'>";
-                        echo "<div class='card-header bg-danger-subtle d-flex justify-content-between align-items-center'>";
+                        echo "<div class='card-header bg-primary-subtle d-flex justify-content-between align-items-center'>";
                         echo "<h5 class='m-0'>" . htmlspecialchars($list['title']) . "</h5>";
                         echo "<div class='dropdown'>";
                         echo "<a class='link' role='button' data-bs-toggle='dropdown' aria-expanded='false'>";
-                        echo "<i class='fas fa-ellipsis-v'></i>";  // The three dots icon
+                        echo "<i class='fas fa-ellipsis-v'></i>";
                         echo "</a>";
                         echo "<ul class='dropdown-menu'>";
                         echo "<li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#editListModal" . $list['id'] . "'>Edit List</a></li>";
@@ -75,6 +74,7 @@
                         echo "</ul>";
                         echo "</div>";
                         echo "</div>";
+                        require 'editList.php';
 
                         echo "<div class='card-body'>";
                         
@@ -98,7 +98,6 @@
                                 echo "<div class='card-body'>";
                                 echo "<p class='card-text'>Status: " . htmlspecialchars($task['status']) . "</p>";
                                 echo "<p class='card-text'>Due Date: " . htmlspecialchars(date('d-m-Y', strtotime($task['due_date']))) . "</p>";
-                                echo $task['id'];
                                 echo "</div>";
                                 echo "</div>";
                                 require 'editTask.php';
