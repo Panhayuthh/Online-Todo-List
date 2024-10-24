@@ -101,6 +101,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <table class="table table-bordered" id="taskTable">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Task</th>
                         <th>List</th>
                         <th>Due Date</th>
@@ -116,7 +117,9 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         echo "<tr><td colspan='7'>No to-do lists found.</td></tr>";
                     } else {
                         foreach ($tasks as $task) {
-                            echo "<tr>";
+                            $isCompleted = $task['status'] === 'Completed';
+                            echo "<tr class='" . ($isCompleted ? 'table-success' : '') . "'>";
+                            echo "<td><input type='checkbox' class='complete-task-checkbox' data-task-id='" . $task['id'] . "' " . ($isCompleted ? 'checked disabled' : '') . "></td>";
                             echo "<td>" . htmlspecialchars($task['name']) . "</td>";
                             echo "<td>" . htmlspecialchars($task['title']) . "</td>";
                             echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($task['due_date']))) . "</td>";
